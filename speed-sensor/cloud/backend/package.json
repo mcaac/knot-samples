@@ -12,6 +12,7 @@
     "cors": "^2.8.4",
     "debug": "^2.6.9",
     "express": "^4.16.4",
+    "knot-cloud": "^1.0.0",
     "http-errors": "^1.7.1",
     "morgan": "^1.9.1",
     "static-favicon": "~1.0.0"

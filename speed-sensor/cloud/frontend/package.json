@@ -2,11 +2,6 @@
   "name": "knot-sample-frontend",
   "version": "1.0.0",
   "private": true,
-  "dependencies": {
-    "react": "^16.5.2",
-    "react-dom": "^16.5.2",
-    "react-scripts": "2.0.4"
-  },
   "scripts": {
     "start": "PORT=3003 BROWSER=none react-scripts start",
     "build": "react-scripts build",
@@ -14,12 +9,26 @@
     "eject": "react-scripts eject",
     "lint": "eslint ."
   },
+  "dependencies": {
+    "axios": "^0.18.0",
+    "react": "^16.5.2",
+    "react-dom": "^16.5.2",
+    "react-scripts": "2.0.4",
+    "semantic-ui-react": "^0.82.5",
+    "socket.io-client": "^2.1.1"
+  },
   "proxy": "http://localhost:3002",
   "devDependencies": {
-    "eslint": "^5.6.1",
+    "eslint": "^5.6.0",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-plugin-import": "^2.14.0",
     "eslint-plugin-jsx-a11y": "^6.1.1",
     "eslint-plugin-react": "^7.11.1"
-  }
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
 }
