@@ -97,7 +97,7 @@ label {
 }
 
 .device-name {
-  font-size: 2em;
+  font-size: 2.0em;
 }
 
 .device-id {
@@ -107,6 +107,21 @@ label {
 .device-value {
   font-size: 1.2em;
   position: relative;
+}
+
+.switch {
+  position: relative;
+  top: 15px;
+  font-size: 0.9em;
+  background-color: green;
+  border-radius: 25px;
+  color: white;
+}
+
+.device-value-text {
+  position: relative;
+  width: 100%;
+  border-radius: 5px;
 }
 
 img {
