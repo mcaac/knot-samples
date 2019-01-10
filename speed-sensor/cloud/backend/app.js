@@ -3,9 +3,19 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
+const socketio = require('socket.io');
+const cors = require('cors');
 const app = express();
 const devices = require('./routes/devices');
 
+app.use(cors({
+  credentials: true,
+  origin: 'http://localhost:3003'
+}));
+
+const io = socketio();
+app.io = io;
+const subscribe = require('./routes/subscribe')(io);
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -28,5 +38,11 @@ app.use(function (err, req, res) {
   res.render('error');
 });
 // render the error page
+
+// socket.io events
+io.on('connection', (socket) => {
+  console.log('A user connected'); // eslint-disable-line no-console
+  socket.on('subscribe', client => subscribe(client));
+});
 
 module.exports = app;
