@@ -8,31 +8,14 @@ import { meshbluDefault } from './config';
 const meshbluDefaultHost = meshbluDefault.host;
 const meshbluDefaultPort = meshbluDefault.port;
 
-const createDeviceCard = device => (
-  <div className="online-device" id={device.id} key={device.id}>
-  <div class="flex-container">
-  <div className="device-info">
-    <div className="device-name">
-      {device.name}
-    </div>
-    <div className="device-id">
-      {device.id}
-    </div>
-  </div>
-  <div className="device-value">
-    <img src={water} alt="water-img" width="90" height="70" />
-     {device.value} G
-  </div>
-  </div>
-</div>
-);
-
 class App extends Component {
   constructor() {
     super();
     this.state = {};
+    this.createDeviceCard = this.createDeviceCard.bind(this);
     this.createDeviceList = this.createDeviceList.bind(this);
     this.getDevices = this.getDevices.bind(this);
+    this.setNewStartValue = this.setNewStartValue.bind(this);
   }
 
   getDevices() {
@@ -68,6 +51,60 @@ class App extends Component {
       });
   }
 
+  setNewStartValue(deviceId, sensorId) {
+    const { uuid } = this.state;
+    const { token } = this.state;
+    const { host } = this.state;
+    const { port } = this.state;
+    const { value } = this.state;
+
+    axios.put(`/devices/${deviceId}/sensors/${sensorId}`, {
+      data: {
+        value 
+      }
+    }, {
+      headers: {
+        'Meshblu-Host': host || meshbluDefaultHost,
+        'Meshblu-Port': port || meshbluDefaultPort,
+        'Meshblu-Auth-UUID': uuid,
+        'Meshblu-Auth-Token': token
+      }
+    })
+      .then(() => { // eslint-disable-next-line no-alert
+        window.alert(`Start value modified!.`);
+      })
+      .catch((error) => { // eslint-disable-next-line no-alert
+        window.alert(`An error occured. Check the information provided and try again. ${error}.`);
+      });
+  }
+
+  createDeviceCard(device) {
+    return (
+      <div className="online-device" id={device.id} key={device.id}>
+        <div class="flex-container">
+        <div className="device-info">
+          <div className="device-name">
+            {device.name}
+          </div>
+          <div className="device-id">
+            {device.id}
+          </div>
+          <label htmlFor="value">
+           <input type="text" id="value" className="device-value-text" onChange={e => this.setState({ value: e.target.value })} />
+        </label>        
+        <button type="button" className="switch" onClick={() => this.setNewStartValue(device.id, device.sensorid)}>
+              SET VALUE
+        </button>
+        </div>
+        <div className="device-value">
+          <img src={water} alt="speed-img" width="90" height="70" />
+          {device.value} G
+        </div>
+        </div>
+      </div>
+    );
+  }
+
   createDeviceList() {
     const { devices } = this.state;
 
@@ -76,7 +113,7 @@ class App extends Component {
         <h1 className="online-devices-header">
           ONLINE DEVICES
         </h1>
-        {_.map(devices, createDeviceCard)}
+        {_.map(devices, this.createDeviceCard)}
       </div>
     );
   }

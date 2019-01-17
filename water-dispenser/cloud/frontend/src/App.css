@@ -109,6 +109,21 @@ label {
   position: relative;
 }
 
+.switch {
+  position: relative;
+  top: 15px;
+  font-size: 0.9em;
+  background-color: green;
+  border-radius: 25px;
+  color: white;
+}
+
+.device-value-text {
+  position: relative;
+  width: 100%;
+  border-radius: 5px;
+}
+
 img {
   position: relative;
   float: center;
